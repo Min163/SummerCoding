@@ -29,7 +29,7 @@
             <!-- work 입력 -->
             <div class="well well-lg newwork_box">
                 <select v-model="newWork.priority">
-                    <option value="-1">우선순위 설정</option>
+                    <option value="">우선순위 설정</option>
                     <option value="FIRST">매우 중요</option>
                     <option value="SECOND">중요</option>
                     <option value="THIRD">보통</option>
@@ -55,6 +55,7 @@
             <!-- todo list -->
             <div class="worklist_box" v-for="(work, index) in works">
                 <div class="well well-lg">
+                    <li>\{{work.priority | priority}}</li>
                     <li>\{{work.workTitle}}</li>
                     <li>\{{work.contents}}</li>
                     <li v-if="work.deadline"> ~ \{{work.deadline | moment}}</li>
@@ -67,7 +68,7 @@
                 <!-- work 수정 -->
                 <div v-if="modifyIndex == index">
                     <select v-model="modifyWork.priority">
-                        <option value="-1">우선순위 설정</option>
+                        <option value="">우선순위 설정</option>
                         <option value="FIRST">매우 중요</option>
                         <option value="SECOND">중요</option>
                         <option value="THIRD">보통</option>
