@@ -5,9 +5,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var http = require('http');
+
 var indexRouter = require('./routes/index');
 
 var app = express();
+var port = process.env.PORT || 3000;
 
 // mongodb setup
 var mongoose = require('mongoose');
@@ -54,4 +57,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+// module.exports = app;
+app.listen(port, "0.0.0.0", function() {
+  console.log("Listening on Port 3000");
+});
