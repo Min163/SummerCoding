@@ -12,7 +12,7 @@ const PORT = process.env.PORT; //Heroku
 
 // mongodb setup
 var mongoose = require('mongoose');
-var promise = mongoose.connect('mongodb://localhost/todolist', {
+var promise = mongoose.connect('mongodb://Min163:kms-320163@ds151805.mlab.com:51805/heroku_mrrb87cq', {
 	usseMongoClient: true
 });
 
