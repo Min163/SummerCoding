@@ -87,8 +87,15 @@ var app = new Vue({
 			if(self.newWork.workTitle != "" && self.newWork.contents != "" && self.newWork.priority != ""){
 				addWork(self.newWork).then(function(rtn){
 					if(rtn.success){
-						self.deadlineCheck = false,
-						self.deadlineToggle = false,
+						self.deadlineCheck = false;
+						self.deadlineToggle = false;
+						self.newWork = {
+							workTitle : "",
+							contents : "",
+							deadline : undefined,
+							priority : "",
+						};
+
 						alert("입력되었습니다");
 
 						getWorks().then(function(rtn){
