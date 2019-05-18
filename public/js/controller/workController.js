@@ -34,7 +34,7 @@ var app = new Vue({
 				if(self.works[i].deadline){
 					var compare = new Date(self.works[i].deadline);
 					if(compare <= today){
-						self.expireWorks.push(self.works[i]);
+						self.expiredWorks.push(self.works[i]);
 					}
 				}
 			}
