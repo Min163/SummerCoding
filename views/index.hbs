@@ -29,8 +29,8 @@
             <div v-if="expiredWorks.length > 0">
                 오늘까지 \{{expiredWorks.length}} 개의 Work가 만료되었습니다!
                 <div v-for="(ework, index) in expiredWorks">
-                    <li>\{{work.workTitle}}</li>
-                    <li>\{{work.contents}}</li>
+                    <li>\{{ework.workTitle}}</li>
+                    <li>\{{ework.contents}}</li>
                 </div>
             </div>
 
