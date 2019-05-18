@@ -14,6 +14,6 @@ module.exports = function(work){
 		updated_at : work.updated_at,
 		completed : work.completed,
 		deadline : work.deadline,
-	
+		priority : work.priority,
 	};
 };

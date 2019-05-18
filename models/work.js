@@ -9,6 +9,7 @@ var workSchema = new Schema({
 	completed: { type: Boolean, default: false },
 
 	deadline : Date,
+	priority : { type: String, default: "FIRST", enum: ["FIRST", "SECOND", "THIRD", "FOURTH"] },
 
 });
 

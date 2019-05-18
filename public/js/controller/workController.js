@@ -10,6 +10,7 @@ var app = new Vue({
 			workTitle : "",
 			contents : "",
 			deadline : undefined,
+			priority : "",
 		},
 		deadlineCheck : false,
 		deadlineToggle : false,
@@ -54,6 +55,10 @@ var app = new Vue({
 			addWork(self.newWork).then(function(rtn){
 				if(rtn.success){
 					alert("입력되었습니다");
+
+					getWorks().then(function(rtn){
+						self.works = rtn;
+					});
 				}
 			});
 		},
@@ -65,6 +70,10 @@ var app = new Vue({
 			deleteWork(id).then(function(rtn){
 				if(rtn.success){
 					alert("삭제되었습니다");
+
+					getWorks().then(function(rtn){
+						self.works = rtn;
+					});
 				}
 			});
 		},
@@ -86,6 +95,10 @@ var app = new Vue({
 					self.modifyIndex = -1;
 					self.modifyWork = "";
 					alert("수정되었습니다");
+
+					getWorks().then(function(rtn){
+						self.works = rtn;
+					});
 				}
 			});
 		},
@@ -99,6 +112,10 @@ var app = new Vue({
 			updateWork(work.id, work).then(function(rtn){
 				if(rtn.success){
 					alert("완료되었습니다");
+
+					getWorks().then(function(rtn){
+						self.works = rtn;
+					});
 				}
 			});	
 		}

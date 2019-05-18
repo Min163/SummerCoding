@@ -25,34 +25,34 @@
 <body>
     <div class="container">
         <div id="work_app">
-            <!-- 입력하는 부분 -->
+
+            <!-- work 입력 -->
             <div class="well well-lg newwork_box">
+                <select v-model="newWork.priority">
+                    <option value="-1">우선순위 설정</option>
+                    <option value="FIRST">매우 중요</option>
+                    <option value="SECOND">중요</option>
+                    <option value="THIRD">보통</option>
+                    <option value="FOURTH">중요하지 않음</option>
+                </select>
+
                 <div class="input-group">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Action</a></li>
-                          <li><a href="#">Another action</a></li>
-                          <li><a href="#">Something else here</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </div><!-- /btn-group -->
                     <input type="text" class="form-control" v-model="newWork.workTitle">
-                    데드라인 설정하기 <input type="checkbox" v-model="deadlineCheck">
-                    <span v-if="deadlineToggle">
-                        <input type="date" class="form-control" v-model="newWork.deadline">
-                    </span>
-                </div><!-- /input-group -->
+                </div>
 
                 <div class="input-group">
                     <textarea class="form-control" v-model="newWork.contents"></textarea>
                 </div>
 
+                데드라인 설정하기 <input type="checkbox" v-model="deadlineCheck">
+                <span v-if="deadlineToggle">
+                    <input type="date" class="form-control" v-model="newWork.deadline">
+                </span>
+
                 <a @click="insertWork">등록</a>
             </div>
 
-            <!-- 전체 목록 보여주는 부분 -->
+            <!-- todo list -->
             <div class="worklist_box" v-for="(work, index) in works">
                 <div class="well well-lg">
                     <li>\{{work.workTitle}}</li>
@@ -63,26 +63,26 @@
                     <a @click="removeWork(work.id)">삭제</a>
                     <a @click="completeWork(work)">완료</a>
                 </div>
+
+                <!-- work 수정 -->
                 <div v-if="modifyIndex == index">
+                    <select v-model="modifyWork.priority">
+                        <option value="-1">우선순위 설정</option>
+                        <option value="FIRST">매우 중요</option>
+                        <option value="SECOND">중요</option>
+                        <option value="THIRD">보통</option>
+                        <option value="FOURTH">중요하지 않음</option>
+                    </select>
+
                     <div class="input-group">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Action</a></li>
-                          <li><a href="#">Another action</a></li>
-                          <li><a href="#">Something else here</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </div><!-- /btn-group -->
-                    <input type="text" class="form-control" v-model="modifyWork.workTitle">
-                </div><!-- /input-group -->
+                        <input type="text" class="form-control" v-model="modifyWork.workTitle">
+                    </div>
 
-                <div class="input-group">
-                    <textarea class="form-control" v-model="modifyWork.contents"></textarea>
-                </div>
+                    <div class="input-group">
+                        <textarea class="form-control" v-model="modifyWork.contents"></textarea>
+                    </div>
 
-                <a @click="updateWork">등록</a>
+                    <a @click="updateWork">등록</a>
                 </div>
             </div>
         </div>
