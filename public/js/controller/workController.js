@@ -18,6 +18,8 @@ var app = new Vue({
 
 		modifyWork : "",
 		modifyIndex : -1,
+		modifyDeadlineCheck : false,
+		modifyDeadlineToggle : false, 
 
 	},
 
@@ -47,7 +49,7 @@ var app = new Vue({
 		deadlineCheck : function(newValue, oldValue){
 			var self = this;
 
-			console.log(newValue);
+			// console.log(newValue);
 
 			if(!newValue){
 				self.deadlineToggle = false;
@@ -56,7 +58,22 @@ var app = new Vue({
 			else{
 				self.deadlineToggle = true;
 			}
-		}
+		},
+
+		modifyDeadlineCheck : function(newValue, oldValue){
+			var self = this;
+
+			console.log(newValue);
+
+			if(!newValue){
+				self.modifyDeadlineToggle = false;
+				self.modifyWork.deadline = undefined;
+			}
+			else{
+				self.modifyDeadlineToggle = true;
+			}
+		},
+
 
 	},
 
@@ -66,15 +83,24 @@ var app = new Vue({
 
 			var self = this;
 			
-			addWork(self.newWork).then(function(rtn){
-				if(rtn.success){
-					alert("입력되었습니다");
+			//제목, 내용, 우선순위는 무조건 작성하도록
+			if(self.newWork.workTitle != "" && self.newWork.contents != "" && self.newWork.priority != ""){
+				addWork(self.newWork).then(function(rtn){
+					if(rtn.success){
+						self.deadlineCheck = false,
+						self.deadlineToggle = false,
+						alert("입력되었습니다");
 
-					getWorks().then(function(rtn){
-						self.works = rtn;
-					});
-				}
-			});
+						getWorks().then(function(rtn){
+							self.works = rtn;
+						});
+					}
+				});
+			}
+			else{
+				alert("제목과 상세내용, 우선순위는 필수입니다");
+			}
+			
 		},
 
 		removeWork(id){
@@ -98,6 +124,10 @@ var app = new Vue({
 
 			self.modifyIndex = index;
 			self.modifyWork = work;
+
+			if(work.deadline != undefined){
+				self.modifyDeadlineCheck = true;
+			}
 		},
 
 		updateWork(){
@@ -108,6 +138,9 @@ var app = new Vue({
 				if(rtn.success){
 					self.modifyIndex = -1;
 					self.modifyWork = "";
+					self.modifyDeadlineCheck = false;
+					self.modifyDeadlineToggle = false;
+
 					alert("수정되었습니다");
 
 					getWorks().then(function(rtn){
@@ -132,7 +165,7 @@ var app = new Vue({
 					});
 				}
 			});	
-		}
+		},
 
 
 	},
