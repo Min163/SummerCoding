@@ -26,6 +26,14 @@
     <div class="container">
         <div id="work_app">
 
+            <div v-if="expiredWorks.length > 0">
+                오늘까지 \{{expiredWorks.length}} 개의 Work가 만료되었습니다!
+                <div v-for="(ework, index) in expredWorks">
+                    <li>\{{work.workTitle}}</li>
+                    <li>\{{work.contents}}</li>
+                </div>
+            </div>
+
             <!-- work 입력 -->
             <div class="well well-lg newwork_box">
                 <select v-model="newWork.priority">

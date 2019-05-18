@@ -5,6 +5,7 @@ var app = new Vue({
 	data: {
 
 		works : [],
+		expiredWorks : [],
 
 		newWork : {
 			workTitle : "",
@@ -17,6 +18,7 @@ var app = new Vue({
 
 		modifyWork : "",
 		modifyIndex : -1,
+
 	},
 
 	mounted: function(){
@@ -25,7 +27,19 @@ var app = new Vue({
 
 		getWorks().then(function(rtn){
 			self.works = rtn;
+
+			//오늘 날짜와 비교하여 마감기한이 지난 work 따로 정리하기
+			var today = new Date();
+			for(var i = 0; i < self.works.length; i++){
+				if(self.works[i].deadline){
+					var compare = new Date(self.works[i].deadline);
+					if(compare <= today){
+						expireWorks.push(self.works[i]);
+					}
+				}
+			}
 		});
+
 	},
 
 	watch : {
