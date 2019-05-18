@@ -53,7 +53,7 @@
                     <textarea class="form-control" v-model="newWork.contents"></textarea>
                 </div>
 
-                데드라인 설정하기 <input type="checkbox" v-model="deadlineCheck">
+                데드라인 설정하기 <input type="checkbox" v-model="deadlineCheck"> <br>
                 <span v-if="deadlineToggle">
                     <input type="date" class="form-control" v-model="newWork.deadline">
                 </span>
@@ -92,7 +92,13 @@
                         <textarea class="form-control" v-model="modifyWork.contents"></textarea>
                     </div>
 
-                    <a @click="updateWork">등록</a>
+                    데드라인 설정하기 <input type="checkbox" v-model="modifyDeadlineCheck"> <br>
+                    <span v-if="modifyDeadlineToggle">
+                        <input type="date" class="form-control" v-model="modifyWork.deadline">
+                    </span>
+
+
+                    <a @click="updateWork">수정완료</a>
                 </div>
             </div>
         </div>
