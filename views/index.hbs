@@ -36,8 +36,8 @@
 
             <!-- work 입력 -->
             <div class="well well-lg newwork_box">
-                
-                <select class="form-control" v-model="newWork.priority">
+
+                <select class="form-control" id="insert select" v-model="newWork.priority">
                     <option value="">우선순위 설정</option>
                     <option value="FIRST">매우 중요</option>
                     <option value="SECOND">중요</option>
@@ -45,14 +45,14 @@
                     <option value="FOURTH">중요하지 않음</option>
                 </select>
 
-                <div class="input-group">
+                <div class="input-group" id="insert title">
                     <span class="input-group-addon" id="sizing-addon2">제목</span>
                     <input type="text" class="form-control" v-model="newWork.workTitle" placeholder="SummerCoding 개별과제" aria-describedby="sizing-addon2">
                 </div>
 
-                <textarea class="form-control" v-model="newWork.contents" rows="3" placeholder="Todo List 만들기"></textarea>
+                <textarea class="form-control" id="insert contents" v-model="newWork.contents" rows="3" placeholder="Todo List 만들기"></textarea>
 
-                <div class="checkbox">
+                <div class="checkbox" id="insert checkbox">
                     <label>
                         <input type="checkbox" v-model="deadlineCheck">
                         종료날짜 설정
@@ -60,11 +60,12 @@
                 </div>
                 {{!-- 데드라인 설정하기 <input type="checkbox" v-model="deadlineCheck"> <br> --}}
                 
-                <div v-if="deadlineToggle">
+                <div v-if="deadlineToggle" id="insert deadline">
                     <input type="date" class="form-control" v-model="newWork.deadline">
                 </div>
 
-                <a @click="insertWork">등록</a>
+                <button type="button" class="btn btn-primary" @click="insertWork">등록</button>
+                {{!-- <a @click="insertWork">등록</a> --}}
             </div>
 
             <div>
@@ -73,18 +74,34 @@
 
             <!-- todo list -->
             <div class="worklist_box" v-for="(work, index) in works">
-                
-                <div class="well well-lg">
-                    <li>\{{work.priority | priority}}</li>
-                    <li>\{{work.workTitle}}</li>
-                    <li>\{{work.contents}}</li>
-                    <li v-if="work.deadline"> ~ \{{work.deadline | moment}}</li>
+                <div>
+                    <div id="completed">
+                        <span v-if="work.completed">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <div id="worktitle">
+                            \{{work.workTitle}}
+                        </div>
+                        <div id="priority">
+                            \{{work.priority | priority}}
+                        </div>
+                        <div id="contents">
+                            \{{work.contents}}
+                        </div>
+                        <div v-if="work.deadline">
+                            ~ \{{work.deadline | moment}}
+                        </div>
+                    </div>
 
-                    <a @click="modifyToggle(work, index)">수정</a>
-                    <a @click="removeWork(work.id)">삭제</a>
-                    <a @click="completeWork(work)">완료</a>
+                    <div>
+                        <a @click="modifyToggle(work, index)">수정</a>
+                        <a @click="removeWork(work.id)">삭제</a>
+                        <a @click="completeWork(work)">완료</a>
+                    </div>
                 </div>
-
+                
                 {{!-- <div class="well well-lg">
                     <li>\{{work.priority | priority}}</li>
                     <li>\{{work.workTitle}}</li>
@@ -98,7 +115,36 @@
 
                 <!-- work 수정 -->
                 <div v-if="modifyIndex == index">
-                    <select v-model="modifyWork.priority">
+                    <select class="form-control" id="modify select" v-model="momdifyWork.priority">
+                        <option value="">우선순위 설정</option>
+                        <option value="FIRST">매우 중요</option>
+                        <option value="SECOND">중요</option>
+                        <option value="THIRD">보통</option>
+                        <option value="FOURTH">중요하지 않음</option>
+                    </select>
+
+                    <div class="input-group" id="modify title">
+                        <span class="input-group-addon" id="sizing-addon2">제목</span>
+                        <input type="text" class="form-control" v-model="modifyWork.workTitle" aria-describedby="sizing-addon2">
+                    </div>
+
+                    <textarea class="form-control" id="modify contents" v-model="modifyWork.contents" rows="3"></textarea>
+
+                    <div class="checkbox" id="modify checkbox">
+                        <label>
+                            <input type="checkbox" v-model="modifyDeadlineCheck">
+                            종료날짜 설정
+                        </label>
+                    </div>
+                    {{!-- 데드라인 설정하기 <input type="checkbox" v-model="deadlineCheck"> <br> --}}
+                    
+                    <div v-if="modifyDeadlineToggle" id="modify deadline">
+                        <input type="date" class="form-control" v-model="modifyWork.deadline">
+                    </div>
+
+                    <button type="button" class="btn btn-primary" @click="updateWork">등록</button>
+                    
+                    {{!-- <select v-model="modifyWork.priority">
                         <option value="">우선순위 설정</option>
                         <option value="FIRST">매우 중요</option>
                         <option value="SECOND">중요</option>
@@ -120,7 +166,7 @@
                     </span>
 
 
-                    <a @click="updateWork">수정완료</a>
+                    <a @click="updateWork">수정완료</a> --}}
                 </div>
             </div>
         </div>
