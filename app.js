@@ -8,7 +8,6 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 
 var app = express();
-const PORT = process.env.PORT; //Heroku
 
 // mongodb setup
 var mongoose = require('mongoose');
