@@ -62,7 +62,14 @@ module.exports = function(){
 						success: true,
 						id: req.params.id,
 					});
-				} else {
+				}
+				else if(response.nModified === 0){
+					res.json({
+						success: true,
+						id: req.params.id,
+					});
+				}
+				else {
 					res.json({
 						success: false,
 						message: ''
