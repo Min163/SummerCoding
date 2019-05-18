@@ -29,10 +29,10 @@
             <!-- 만료된 todo list -->
             <div v-if="expiredWorks.length > 0">
                 오늘까지 \{{expiredWorks.length}} 개의 Work가 만료되었습니다!
-                <div v-for="(ework, index) in expiredWorks">
+                {{!-- <div v-for="(ework, index) in expiredWorks">
                     <li>\{{ework.workTitle}}</li>
                     <li>\{{ework.contents}}</li>
-                </div>
+                </div> --}}
             </div>
 
             <!-- work 입력 -->
