@@ -15,8 +15,8 @@ router.route('/').get(function(req, res){
 })
 
 /* work */
-// router.get('/api/work', util_server.permittedAccess, workHandlers.getWorks);
-router.get('/api/work', workHandlers.getWorks);
+router.get('/api/work', util_server.permittedAccess, workHandlers.getWorks);
+// router.get('/api/work', workHandlers.getWorks);
 
 router.post('/api/work', workHandlers.newWork);
 
