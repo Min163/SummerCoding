@@ -21,6 +21,8 @@ var app = new Vue({
 		modifyDeadlineCheck : false,
 		modifyDeadlineToggle : false, 
 
+		viewExpired : false,
+
 	},
 
 	mounted: function(){
@@ -216,6 +218,18 @@ var app = new Vue({
 					});
 				}
 			});	
+		},
+
+		viewExpiredWork(){
+
+			var self = this;
+
+			if(!self.viewExpired){
+				self.viewExpired = true;
+			} 
+			else{
+				self.viewExpired = false;
+			}
 		},
 
 

@@ -34,19 +34,74 @@
             <div class="alert alert-warning alert-dismissible" role="alert" v-if="expiredWorks.length > 0">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>알림!</strong> 오늘까지 \{{expiredWorks.length}} 개의 Work가 만료되었습니다!
+                <a @click="">(자세히보기)</a>
+            </div>
+
+            <!-- 마감기한이 지난 work list -->
+            <div class="todo-expired-title">
+                EXPIRED WORKS
+            </div>
+
+            <div class="expired-worklist_box" v-for="(work, index) in expiredWorks">
+                <div class="expired-worklist_card">
+                    <div class="completed">
+                        <span v-if="work.completed">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span v-if="!work.completed">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    </div>
+                    <div class="worklist_content">
+                        <div class="worktitle">
+                            \{{work.workTitle}}
+                            <span class="deadline" v-if="work.deadline">\{{work.updated_at | moment}} ~ \{{work.deadline | moment}}</span>
+                        </div>
+                        <div class="priority">
+                            <span class="stars" v-if="work.priority == 'FIRST'">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="stars" v-if="work.priority == 'SECOND'">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="stars" v-if="work.priority == 'THIRD'">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="stars" v-if="work.priority == 'FOURTH'">
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
+                        <div class="contents">
+                            \{{work.contents}}
+                        </div>
+                        <div class="function">
+                            <a class="delete_btn" @click="removeWork(work.id)">삭제</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- work 입력 -->
-            <div class="well well-lg newwork_box">
+            <div class="todo-title">
+                NEW WORK
+            </div>
 
-                <div class="input-group" id="insert title">
+            <div class="newwork_card">
+
+                <div class="input-group">
                     <span class="input-group-addon" id="sizing-addon2">제목</span>
                     <input type="text" class="form-control" v-model="newWork.workTitle" placeholder="SummerCoding 개별과제" aria-describedby="sizing-addon2">
                 </div>
 
-                <textarea class="form-control" id="insert contents" v-model="newWork.contents" rows="3" placeholder="Todo List 만들기"></textarea>
+                <textarea class="form-control" v-model="newWork.contents" rows="3" placeholder="Todo List 만들기"></textarea>
 
-                <select class="form-control" id="insert select" v-model="newWork.priority">
+                <select class="form-control" v-model="newWork.priority">
                     <option value="">우선순위 설정</option>
                     <option value="FIRST">매우 중요</option>
                     <option value="SECOND">중요</option>
@@ -54,7 +109,7 @@
                     <option value="FOURTH">중요하지 않음</option>
                 </select>
 
-                <div class="checkbox" id="insert checkbox">
+                <div class="checkbox">
                     <label>
                         <input type="checkbox" v-model="deadlineCheck">
                         종료날짜 설정
@@ -62,12 +117,12 @@
                 </div>
                 {{!-- 데드라인 설정하기 <input type="checkbox" v-model="deadlineCheck"> <br> --}}
                 
-                <div v-if="deadlineToggle" id="insert deadline">
+                <div v-if="deadlineToggle" class="insert deadline">
                     <input type="date" class="form-control" v-model="newWork.deadline">
                 </div>
 
                 <button type="button" class="btn btn-primary" @click="insertWork">등록</button>
-                {{!-- <a @click="insertWork">등록</a> --}}
+
             </div>
 
             <div class="todo-title">
@@ -81,14 +136,14 @@
                         <span v-if="work.completed">
                             <i class="fas fa-check"></i>
                         </span>
-                        <span v-if="work.completed">
+                        <span v-if="!work.completed">
                             <a @click="completeWork(work)">Done!</a>
                         </span>
                     </div>
                     <div class="worklist_content">
                         <div class="worktitle">
                             \{{work.workTitle}}
-                            <span v-if="work.deadline">\{{work.updated_at | moment}} ~ \{{work.deadline | moment}}</span>
+                            <span class="deadline" v-if="work.deadline">\{{work.updated_at | moment}} ~ \{{work.deadline | moment}}</span>
                         </div>
                         <div class="priority">
                             <span class="stars" v-if="work.priority == 'FIRST'">
@@ -121,8 +176,15 @@
                 </div>
 
                 <!-- work 수정 -->
-                <div v-if="modifyIndex == index">
-                    <select class="form-control" id="modify select" v-model="modifyWork.priority">
+                <div class="modify_card" v-if="modifyIndex == index">
+                    <div class="input-group modify">
+                        <span class="input-group-addon" id="sizing-addon2">제목</span>
+                        <input type="text" class="form-control" v-model="modifyWork.workTitle" aria-describedby="sizing-addon2">
+                    </div>
+
+                    <textarea class="form-control modify" v-model="modifyWork.contents" rows="3"></textarea>
+
+                    <select class="form-control modify" id="modify select" v-model="modifyWork.priority">
                         <option value="">우선순위 설정</option>
                         <option value="FIRST">매우 중요</option>
                         <option value="SECOND">중요</option>
@@ -130,50 +192,19 @@
                         <option value="FOURTH">중요하지 않음</option>
                     </select>
 
-                    <div class="input-group" id="modify title">
-                        <span class="input-group-addon" id="sizing-addon2">제목</span>
-                        <input type="text" class="form-control" v-model="modifyWork.workTitle" aria-describedby="sizing-addon2">
-                    </div>
-
-                    <textarea class="form-control" id="modify contents" v-model="modifyWork.contents" rows="3"></textarea>
-
-                    <div class="checkbox" id="modify checkbox">
+                    <div class="checkbox modify">
                         <label>
                             <input type="checkbox" v-model="modifyDeadlineCheck">
                             종료날짜 설정
                         </label>
                     </div>
-                    {{!-- 데드라인 설정하기 <input type="checkbox" v-model="deadlineCheck"> <br> --}}
                     
-                    <div v-if="modifyDeadlineToggle" id="modify deadline">
+                    <div v-if="modifyDeadlineToggle" class="modify">
                         <input type="date" class="form-control" v-model="modifyWork.deadline">
                     </div>
 
-                    <button type="button" class="btn btn-primary" @click="updateWork">등록</button>
-                    
-                    {{!-- <select v-model="modifyWork.priority">
-                        <option value="">우선순위 설정</option>
-                        <option value="FIRST">매우 중요</option>
-                        <option value="SECOND">중요</option>
-                        <option value="THIRD">보통</option>
-                        <option value="FOURTH">중요하지 않음</option>
-                    </select>
+                    <button type="button" class="btn btn-primary" @click="updateWork">수정완료</button>
 
-                    <div class="input-group">
-                        <input type="text" class="form-control" v-model="modifyWork.workTitle">
-                    </div>
-
-                    <div class="input-group">
-                        <textarea class="form-control" v-model="modifyWork.contents"></textarea>
-                    </div>
-
-                    데드라인 설정하기 <input type="checkbox" v-model="modifyDeadlineCheck"> <br>
-                    <span v-if="modifyDeadlineToggle">
-                        <input type="date" class="form-control" v-model="modifyWork.deadline">
-                    </span>
-
-
-                    <a @click="updateWork">수정완료</a> --}}
                 </div>
             </div>
         </div>
