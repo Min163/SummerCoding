@@ -122,7 +122,10 @@
                 </div>
 
                 {{!-- <button type="button" class="btn btn-primary" @click="insertWork">등록</button> --}}
-                <a class="btn-click btn-insert" @click="insertWork">등록</a>
+                <div class="btn-click btn-insert">
+                    <a @click="insertWork">등록</a>
+                </div>
+                
 
             </div>
 
@@ -205,8 +208,11 @@
                     </div>
 
                     {{!-- <button type="button" class="btn btn-primary" @click="updateWork">수정완료</button> --}}
-                    <a class="btn-click btn-insert"></a>
 
+                    <div class="btn-click btn-insert">
+                        <a @click="updateWork">수정완료</a>
+                    </div>
+                    
                 </div>
             </div>
         </div>

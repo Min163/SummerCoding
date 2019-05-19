@@ -76,9 +76,9 @@
 	color: #FF434C;
 }
 
-/*.make-complete{
-	color: #000000;
-}*/
+.make-complete{
+	color: #FF434C;
+}
 
 .worklist_content{
 	/*float: right;*/
