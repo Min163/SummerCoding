@@ -31,57 +31,60 @@
     <div class="container">
         <div id="work_app">
             <!-- 만료된 todo list -->
-            <div class="alert alert-warning alert-dismissible" role="alert" v-if="expiredWorks.length > 0">
+            <div class="announce_card alert alert-warning alert-dismissible" role="alert" v-if="expiredWorks.length > 0">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>알림!</strong> 오늘까지 \{{expiredWorks.length}} 개의 Work가 만료되었습니다!
-                <a @click="">(자세히보기)</a>
+                <a class="btn-click" @click="viewExpiredWork">(자세히 보기)</a>
             </div>
 
-            <!-- 마감기한이 지난 work list -->
-            <div class="todo-expired-title">
-                EXPIRED WORKS
-            </div>
+            <div v-if="viewExpired">
+                <a class="fr btn-click" @click="viewExpiredWork" ><i class="fas fa-times"></i></a>
 
-            <div class="expired-worklist_box" v-for="(work, index) in expiredWorks">
-                <div class="expired-worklist_card">
-                    <div class="completed">
-                        <span v-if="work.completed">
-                            <i class="fas fa-check"></i>
-                        </span>
-                        <span v-if="!work.completed">
-                            <i class="fas fa-times"></i>
-                        </span>
-                    </div>
-                    <div class="worklist_content">
-                        <div class="worktitle">
-                            \{{work.workTitle}}
-                            <span class="deadline" v-if="work.deadline">\{{work.updated_at | moment}} ~ \{{work.deadline | moment}}</span>
-                        </div>
-                        <div class="priority">
-                            <span class="stars" v-if="work.priority == 'FIRST'">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                <div class="todo-expired-title">
+                    EXPIRED WORKS
+                </div>
+
+                <div class="expired-worklist_box" v-for="(work, index) in expiredWorks">
+                    <div class="expired-worklist_card">
+                        <div class="expired-completed">
+                            <span v-if="work.completed">
+                                <i class="fas fa-check fa-4x"></i>
                             </span>
-                            <span class="stars" v-if="work.priority == 'SECOND'">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                            <span class="stars" v-if="work.priority == 'THIRD'">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                            <span class="stars" v-if="work.priority == 'FOURTH'">
-                                <i class="fas fa-star"></i>
+                            <span v-if="!work.completed">
+                                <i class="fas fa-times fa-4x"></i>
                             </span>
                         </div>
-                        <div class="contents">
-                            \{{work.contents}}
-                        </div>
-                        <div class="function">
-                            <a class="delete_btn" @click="removeWork(work.id)">삭제</a>
+                        <div class="worklist_content">
+                            <div class="worktitle">
+                                \{{work.workTitle}}
+                                <span class="deadline" v-if="work.deadline">\{{work.updated_at | moment}} ~ \{{work.deadline | moment}}</span>
+                            </div>
+                            <div class="priority">
+                                <span class="stars" v-if="work.priority == 'FIRST'">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                                <span class="stars" v-if="work.priority == 'SECOND'">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                                <span class="stars" v-if="work.priority == 'THIRD'">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                                <span class="stars" v-if="work.priority == 'FOURTH'">
+                                    <i class="fas fa-star"></i>
+                                </span>
+                            </div>
+                            <div class="contents">
+                                \{{work.contents}}
+                            </div>
+                            <div class="function">
+                                <a class="delete_btn" @click="removeWork(work.id)">삭제</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,14 +97,14 @@
 
             <div class="newwork_card">
 
-                <div class="input-group">
+                <div class="input-group insert">
                     <span class="input-group-addon" id="sizing-addon2">제목</span>
                     <input type="text" class="form-control" v-model="newWork.workTitle" placeholder="SummerCoding 개별과제" aria-describedby="sizing-addon2">
                 </div>
 
-                <textarea class="form-control" v-model="newWork.contents" rows="3" placeholder="Todo List 만들기"></textarea>
+                <textarea class="form-control insert" v-model="newWork.contents" rows="3" placeholder="Todo List 만들기"></textarea>
 
-                <select class="form-control" v-model="newWork.priority">
+                <select class="form-control insert" v-model="newWork.priority">
                     <option value="">우선순위 설정</option>
                     <option value="FIRST">매우 중요</option>
                     <option value="SECOND">중요</option>
@@ -109,7 +112,7 @@
                     <option value="FOURTH">중요하지 않음</option>
                 </select>
 
-                <div class="checkbox">
+                <div class="checkbox insert">
                     <label>
                         <input type="checkbox" v-model="deadlineCheck">
                         종료날짜 설정
@@ -117,7 +120,7 @@
                 </div>
                 {{!-- 데드라인 설정하기 <input type="checkbox" v-model="deadlineCheck"> <br> --}}
                 
-                <div v-if="deadlineToggle" class="insert deadline">
+                <div v-if="deadlineToggle" class="insert">
                     <input type="date" class="form-control" v-model="newWork.deadline">
                 </div>
 
@@ -134,10 +137,10 @@
                 <div class="worklist_card">
                     <div class="completed">
                         <span v-if="work.completed">
-                            <i class="fas fa-check"></i>
+                            <i class="fas fa-check fa-4x"></i>
                         </span>
                         <span v-if="!work.completed">
-                            <a @click="completeWork(work)">Done!</a>
+                            <a class="btn-click" @click="completeWork(work)"><i class="far fa-square fa-4x"></i></a>
                         </span>
                     </div>
                     <div class="worklist_content">
@@ -169,8 +172,8 @@
                             \{{work.contents}}
                         </div>
                         <div class="function">
-                            <a class="modify_btn" @click="modifyToggle(work, index)">수정</a>
-                            <a class="delete_btn" @click="removeWork(work.id)">삭제</a>
+                            <a class="btn-click" @click="modifyToggle(work, index)">수정</a>
+                            <a class="btn-click" @click="removeWork(work.id)">삭제</a>
                         </div>
                     </div>
                 </div>
