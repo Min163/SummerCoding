@@ -70,14 +70,14 @@
                 {{!-- <a @click="insertWork">등록</a> --}}
             </div>
 
-            <div id="todo-title">
+            <div class="todo-title">
                 TODOS
             </div>
 
             <!-- todo list -->
-            <div id="worklist_box" v-for="(work, index) in works">
-                <div id="worklist_card">
-                    <div id="completed">
+            <div class="worklist_box" v-for="(work, index) in works">
+                <div class="worklist_card">
+                    <div class="completed">
                         <span v-if="work.completed">
                             <i class="fas fa-check"></i>
                         </span>
@@ -85,37 +85,37 @@
                             <a @click="completeWork(work)">Done!</a>
                         </span>
                     </div>
-                    <div id="worklist_content">
-                        <div id="worktitle">
+                    <div class="worklist_content">
+                        <div class="worktitle">
                             \{{work.workTitle}}
                             <span v-if="work.deadline">\{{work.updated_at | moment}} ~ \{{work.deadline | moment}}</span>
                         </div>
-                        <div id="priority">
-                            <span id="stars" v-if="work.priority == 'FIRST'">
+                        <div class="priority">
+                            <span class="stars" v-if="work.priority == 'FIRST'">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </span>
-                            <span id="stars" v-if="work.priority == 'SECOND'">
+                            <span class="stars" v-if="work.priority == 'SECOND'">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </span>
-                            <span id="stars" v-if="work.priority == 'THIRD'">
+                            <span class="stars" v-if="work.priority == 'THIRD'">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </span>
-                            <span id="stars" v-if="work.priority == 'FOURTH'">
+                            <span class="stars" v-if="work.priority == 'FOURTH'">
                                 <i class="fas fa-star"></i>
                             </span>
                         </div>
-                        <div id="contents">
+                        <div class="contents">
                             \{{work.contents}}
                         </div>
-                        <div id="function">
-                            <a id="modify_btn" @click="modifyToggle(work, index)">수정</a>
-                            <a id="delete_btn" @click="removeWork(work.id)">삭제</a>
+                        <div class="function">
+                            <a class="modify_btn" @click="modifyToggle(work, index)">수정</a>
+                            <a class="delete_btn" @click="removeWork(work.id)">삭제</a>
                         </div>
                     </div>
                 </div>
