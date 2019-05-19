@@ -24,6 +24,8 @@
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
+    <script type="css" src="/css/work.css"></script>
+
 </head>
 <body>
     <div class="container">
@@ -73,45 +75,50 @@
             </div>
 
             <!-- todo list -->
-            <div class="worklist_box" v-for="(work, index) in works">
-                <div>
+            <div id="worklist_box" v-for="(work, index) in works">
+                <div id="worklist_card">
                     <div id="completed">
                         <span v-if="work.completed">
                             <i class="fas fa-check"></i>
                         </span>
+                        <span v-if="work.completed">
+                            <a @click="completeWork(work)">Done!</a>
+                        </span>
                     </div>
-                    <div>
+                    <div id="worklist_content">
                         <div id="worktitle">
                             \{{work.workTitle}}
+                            <span v-if="work.deadline">\{{work.updated_at | moment}} ~ \{{work.deadline | moment}}</span>
                         </div>
                         <div id="priority">
-                            \{{work.priority | priority}}
+                            <span id="stars" v-if="work.priority == 'FIRST'">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span id="stars" v-if="work.priority == 'SECOND'">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span id="stars" v-if="work.priority == 'THIRD'">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span id="stars" v-if="work.priority == 'FOURTH'">
+                                <i class="fas fa-star"></i>
+                            </span>
                         </div>
                         <div id="contents">
                             \{{work.contents}}
                         </div>
-                        <div v-if="work.deadline">
-                            ~ \{{work.deadline | moment}}
+                        <div id="function">
+                            <a id="modify_btn" @click="modifyToggle(work, index)">수정</a>
+                            <a id="delete_btn" @click="removeWork(work.id)">삭제</a>
                         </div>
                     </div>
-
-                    <div>
-                        <a @click="modifyToggle(work, index)">수정</a>
-                        <a @click="removeWork(work.id)">삭제</a>
-                        <a @click="completeWork(work)">완료</a>
-                    </div>
                 </div>
-                
-                {{!-- <div class="well well-lg">
-                    <li>\{{work.priority | priority}}</li>
-                    <li>\{{work.workTitle}}</li>
-                    <li>\{{work.contents}}</li>
-                    <li v-if="work.deadline"> ~ \{{work.deadline | moment}}</li>
-
-                    <a @click="modifyToggle(work, index)">수정</a>
-                    <a @click="removeWork(work.id)">삭제</a>
-                    <a @click="completeWork(work)">완료</a>
-                </div> --}}
 
                 <!-- work 수정 -->
                 <div v-if="modifyIndex == index">
