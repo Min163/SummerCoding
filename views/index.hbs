@@ -37,6 +37,13 @@
             <!-- work 입력 -->
             <div class="well well-lg newwork_box">
 
+                <div class="input-group" id="insert title">
+                    <span class="input-group-addon" id="sizing-addon2">제목</span>
+                    <input type="text" class="form-control" v-model="newWork.workTitle" placeholder="SummerCoding 개별과제" aria-describedby="sizing-addon2">
+                </div>
+
+                <textarea class="form-control" id="insert contents" v-model="newWork.contents" rows="3" placeholder="Todo List 만들기"></textarea>
+
                 <select class="form-control" id="insert select" v-model="newWork.priority">
                     <option value="">우선순위 설정</option>
                     <option value="FIRST">매우 중요</option>
@@ -44,13 +51,6 @@
                     <option value="THIRD">보통</option>
                     <option value="FOURTH">중요하지 않음</option>
                 </select>
-
-                <div class="input-group" id="insert title">
-                    <span class="input-group-addon" id="sizing-addon2">제목</span>
-                    <input type="text" class="form-control" v-model="newWork.workTitle" placeholder="SummerCoding 개별과제" aria-describedby="sizing-addon2">
-                </div>
-
-                <textarea class="form-control" id="insert contents" v-model="newWork.contents" rows="3" placeholder="Todo List 만들기"></textarea>
 
                 <div class="checkbox" id="insert checkbox">
                     <label>
@@ -68,7 +68,7 @@
                 {{!-- <a @click="insertWork">등록</a> --}}
             </div>
 
-            <div>
+            <div id="todo-title">
                 TODOS
             </div>
 
