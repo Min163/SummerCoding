@@ -54,7 +54,7 @@
                                 <i class="fas fa-times fa-4x"></i>
                             </span>
                         </div>
-                        <div class="worklist_content">
+                        <div class="fr worklist_content">
                             <div class="worktitle">
                                 \{{work.workTitle}}
                                 <span class="deadline" v-if="work.deadline">\{{work.updated_at | moment}} ~ \{{work.deadline | moment}}</span>
@@ -121,7 +121,8 @@
                     <input type="date" class="form-control" v-model="newWork.deadline">
                 </div>
 
-                <button type="button" class="btn btn-primary" @click="insertWork">등록</button>
+                {{!-- <button type="button" class="btn btn-primary" @click="insertWork">등록</button> --}}
+                <a class="btn-click btn-insert" @click="insertWork">등록</a>
 
             </div>
 
@@ -203,7 +204,8 @@
                         <input type="date" class="form-control" v-model="modifyWork.deadline">
                     </div>
 
-                    <button type="button" class="btn btn-primary" @click="updateWork">수정완료</button>
+                    {{!-- <button type="button" class="btn btn-primary" @click="updateWork">수정완료</button> --}}
+                    <a class="btn-click btn-insert"></a>
 
                 </div>
             </div>

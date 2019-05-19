@@ -206,7 +206,7 @@ var app = new Vue({
 
 			updateWork(work.id, work).then(function(rtn){
 				if(rtn.success){
-					alert("완료되었습니다");
+					// alert("완료되었습니다");
 
 					getWorks().then(function(rtn){
 						self.works = rtn;
