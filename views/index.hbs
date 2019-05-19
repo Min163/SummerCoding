@@ -38,7 +38,7 @@
             </div>
 
             <div v-if="viewExpired">
-                <a class="fr btn-click" @click="viewExpiredWork" ><i class="fas fa-times"></i></a>
+                <a class="fr btn-click btn-disappear" @click="viewExpiredWork"><i class="fas fa-times"></i></a>
 
                 <div class="todo-expired-title">
                     EXPIRED WORKS
@@ -46,7 +46,7 @@
 
                 <div class="expired-worklist_box" v-for="(work, index) in expiredWorks">
                     <div class="expired-worklist_card">
-                        <div class="expired-completed">
+                        <div class="fl expired-completed">
                             <span v-if="work.completed">
                                 <i class="fas fa-check fa-4x"></i>
                             </span>
@@ -81,9 +81,6 @@
                             </div>
                             <div class="contents">
                                 \{{work.contents}}
-                            </div>
-                            <div class="function">
-                                <a class="delete_btn" @click="removeWork(work.id)">삭제</a>
                             </div>
                         </div>
                     </div>
@@ -135,15 +132,15 @@
             <!-- todo list -->
             <div class="worklist_box" v-for="(work, index) in works">
                 <div class="worklist_card">
-                    <div class="completed">
+                    <div class="fl completed">
                         <span v-if="work.completed">
-                            <i class="fas fa-check fa-4x"></i>
+                            <i class="far fa-check-square fa-4x"></i>
                         </span>
                         <span v-if="!work.completed">
-                            <a class="btn-click" @click="completeWork(work)"><i class="far fa-square fa-4x"></i></a>
+                            <a class="btn-click make-complete" @click="completeWork(work)"><i class="far fa-square fa-4x"></i></a>
                         </span>
                     </div>
-                    <div class="worklist_content">
+                    <div class="fr worklist_content">
                         <div class="worktitle">
                             \{{work.workTitle}}
                             <span class="deadline" v-if="work.deadline">\{{work.updated_at | moment}} ~ \{{work.deadline | moment}}</span>

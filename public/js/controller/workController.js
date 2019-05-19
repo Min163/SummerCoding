@@ -104,6 +104,8 @@ var app = new Vue({
 							self.works = rtn;
 
 							//오늘 날짜와 비교하여 마감기한이 지난 work 따로 정리하기
+							self.expiredWorks = [];
+
 							var today = new Date();
 							for(var i = 0; i < self.works.length; i++){
 								if(self.works[i].deadline){
@@ -135,6 +137,8 @@ var app = new Vue({
 						self.works = rtn;
 
 						//오늘 날짜와 비교하여 마감기한이 지난 work 따로 정리하기
+						self.expiredWorks = [];
+
 						var today = new Date();
 						for(var i = 0; i < self.works.length; i++){
 							if(self.works[i].deadline){
@@ -178,6 +182,8 @@ var app = new Vue({
 						self.works = rtn;
 
 						//오늘 날짜와 비교하여 마감기한이 지난 work 따로 정리하기
+						self.expiredWorks = [];
+
 						var today = new Date();
 						for(var i = 0; i < self.works.length; i++){
 							if(self.works[i].deadline){
@@ -206,6 +212,8 @@ var app = new Vue({
 						self.works = rtn;
 
 						//오늘 날짜와 비교하여 마감기한이 지난 work 따로 정리하기
+						self.expiredWorks = [];
+						
 						var today = new Date();
 						for(var i = 0; i < self.works.length; i++){
 							if(self.works[i].deadline){

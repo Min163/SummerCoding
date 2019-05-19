@@ -31,9 +31,9 @@
 }
 
 .expired-completed{
-	float: left;
-	width: 118px;
-	height: 118px;
+	/*float: left;*/
+	width: 140px;
+	height: 140px;
 	text-align: center;
 	line-height: 150px;
 	border-right: 3px solid #B8B8B8;
@@ -64,25 +64,30 @@
 
 .worklist_card{
 	height: 140px;
-	padding: 10px;
+	/*padding: 10px;*/
 	border: 3px solid #FF434C;
 	border-top: 0px;
 }
 
 .completed{
-	float: left;
-	width: 118px;
-	height: 118px;
+	/*float: left;*/
+	width: 140px;
+	height: 140px;
+	padding: 10px;
 	text-align: center;
 	line-height: 150px;
 	border-right: 3px solid #FF434C;
 }
 
+.make-complete{
+	color: #000000;
+}
+
 .worklist_content{
-	float: right;
-	width: calc(100% - 118px);
-	height: 118px;
-	padding: 0 0 0 10px;
+	/*float: right;*/
+	width: calc(100% - 140px);
+	height: 140px;
+	padding: 10px;
 }
 
 .worktitle{
@@ -127,3 +132,8 @@
 	cursor: pointer;
 }
 
+.btn-disappear{
+	margin-top: 15px;
+	margin-right: 20px;
+	color: #000000;
+}
